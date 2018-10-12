@@ -1,4 +1,4 @@
-import { Sink, Transport } from '@electricui/core'
+import { Message, Sink, Transport } from '@electricui/core'
 
 const dTransport = require('debug')('electricui-transport-node-hid:transport')
 
@@ -51,12 +51,15 @@ export default class HIDTransport extends Transport {
   receiveData(chunk: any) {
     dTransport('received raw hid data', chunk)
 
-    this.readPipeline.push(chunk)
+    // immediately convert it to a message
+    const message = new Message('event', chunk)
+
+    this.readPipeline.push(message)
   }
 
   connect() {
     return new Promise((resolve, reject) => {
-      this.hid = new this.options.HID(this.options.path)
+      this.hid = new this.options.HID.HID(this.options.path)
 
       this.hid.on('error', this.error)
       this.hid.on('data', this.receiveData)

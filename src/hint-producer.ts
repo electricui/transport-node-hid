@@ -1,12 +1,8 @@
 import { DiscoveryHintProducer, Hint } from '@electricui/core'
 
-/**
- * The baudrate is optional, as they may use a transformer to add several baudRate options if they wish
- */
 interface HIDHintProducerOptions {
   transportKey?: string
   HID: any
-  baudRate?: number
 }
 
 export default class HIDHintProducer extends DiscoveryHintProducer {
