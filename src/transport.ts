@@ -57,28 +57,19 @@ export default class HIDTransport extends Transport {
     this.readPipeline.push(message)
   }
 
-  connect() {
-    return new Promise((resolve, reject) => {
-      this.hid = new this.options.HID.HID(this.options.path)
+  async connect() {
+    this.hid = new this.options.HID.HID(this.options.path)
 
-      this.hid.on('error', this.error)
-      this.hid.on('data', this.receiveData)
-      this.hid.on('close', this.close)
-      resolve()
-    })
+    this.hid.on('error', this.error)
+    this.hid.on('data', this.receiveData)
+    this.hid.on('close', this.close)
   }
 
-  disconnect() {
-    return new Promise((resolve, reject) => {
-      this.hid.removeListener('error', this.error)
-      this.hid.removeListener('data', this.receiveData)
-      this.hid.removeListener('close', this.close)
-      this.hid.close()
-
-      resolve()
-    })
-
-    return Promise.resolve()
+  async disconnect() {
+    this.hid.removeListener('error', this.error)
+    this.hid.removeListener('data', this.receiveData)
+    this.hid.removeListener('close', this.close)
+    this.hid.close()
   }
 
   writeToDevice(chunk: any) {
