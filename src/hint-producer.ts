@@ -7,7 +7,7 @@ interface HIDHintProducerOptions {
 
 export default class HIDHintProducer extends DiscoveryHintProducer {
   transportKey: string
-  hid: any // HID
+  hid: any
   options: HIDHintProducerOptions
   constructor(options: HIDHintProducerOptions) {
     super()
