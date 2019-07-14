@@ -40,6 +40,9 @@
     "tslib": "^1.9.3",
     "typescript": "^3.5.1"
   },
+  "peerDependencies": {
+    "node-hid": "*"
+  },
   "scripts": {
     "prepack": "silversmith prepack",
     "build": "rollup -c",
