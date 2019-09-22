@@ -1,6 +1,6 @@
 {
   "name": "@electricui/transport-node-hid",
-  "version": "0.6.3",
+  "version": "0.6.4-prerelease.0",
   "description": "ElectricUI HID Transport for Desktop",
   "electricui-dev": true,
   "author": "Electric UI <support@electricui.com> (https://electricui.com)",
@@ -13,7 +13,7 @@
     "manifest.json"
   ],
   "dependencies": {
-    "@electricui/core": "^0.6.3",
+    "@electricui/core": "^0.6.4-prerelease.0",
     "bluebird": "^3.5.3",
     "debug": "^4.1.1"
   },
