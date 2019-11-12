@@ -21,7 +21,7 @@ const delay = (time: number) => {
   })
 }
 
-const HID = require('node-hid')
+const HID = require('@electricui/node-hid')
 
 const assert = chai.assert
 

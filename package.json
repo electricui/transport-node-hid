@@ -30,7 +30,7 @@
     "chai-subset": "^1.6.0",
     "mocha": "^5.2.0",
     "mochawesome": "^3.1.1",
-    "node-hid": "^0.7.9",
+    "@electricui/node-hid": "0.6.6-prerelease.1",
     "nyc": "^13.3.0",
     "rollup": "^1.23.1",
     "rollup-plugin-auto-external": "^2.0.0",
@@ -41,7 +41,7 @@
     "typescript": "^3.7.2"
   },
   "peerDependencies": {
-    "node-hid": "*"
+    "@electricui/node-hid": "*"
   },
   "scripts": {
     "prepack": "silversmith prepack",
