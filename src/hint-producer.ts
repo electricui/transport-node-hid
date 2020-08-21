@@ -26,8 +26,10 @@ export default class HIDHintProducer extends DiscoveryHintProducer {
 
     if (!this.polling) {
       // if we were cancelled just don't send them up.
-      return
+      return []
     }
+
+    const hintList: Hint[] = []
 
     for (const device of devices) {
       const hint = new Hint(this.transportKey)
@@ -48,8 +50,12 @@ export default class HIDHintProducer extends DiscoveryHintProducer {
       })
 
       this.foundHint(hint)
+
+      hintList.push(hint)
     }
 
     this.setPolling(false)
+
+    return hintList
   }
 }
