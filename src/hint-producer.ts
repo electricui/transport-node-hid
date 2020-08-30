@@ -1,4 +1,8 @@
-import { DiscoveryHintProducer, Hint } from '@electricui/core'
+import {
+  CancellationToken,
+  DiscoveryHintProducer,
+  Hint,
+} from '@electricui/core'
 
 interface HIDHintProducerOptions {
   transportKey?: string
@@ -18,7 +22,7 @@ export default class HIDHintProducer extends DiscoveryHintProducer {
     this.hid = options.HID
   }
 
-  async poll() {
+  async poll(cancellationToken: CancellationToken) {
     this.setPolling(true)
 
     // TODO: figure out how to do this dependency injection
@@ -49,7 +53,7 @@ export default class HIDHintProducer extends DiscoveryHintProducer {
         usage: device.usage,
       })
 
-      this.foundHint(hint)
+      this.foundHint(hint, cancellationToken)
 
       hintList.push(hint)
     }

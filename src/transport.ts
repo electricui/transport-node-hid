@@ -1,4 +1,4 @@
-import { Message, Sink, Transport } from '@electricui/core'
+import { CancellationToken, Message, Sink, Transport } from '@electricui/core'
 
 const dTransport = require('debug')('electricui-transport-node-hid:transport')
 
@@ -10,15 +10,20 @@ export interface HIDTransportOptions {
 }
 
 class HIDWriteSink extends Sink {
-  callback: (chunk: any) => Promise<any>
+  callback: (chunk: any, cancellationToken: CancellationToken) => Promise<any>
 
-  constructor(callback: (chunk: any) => Promise<any>) {
+  constructor(
+    callback: (
+      chunk: any,
+      cancellationToken: CancellationToken,
+    ) => Promise<any>,
+  ) {
     super()
     this.callback = callback
   }
 
-  receive(chunk: any) {
-    return this.callback(chunk)
+  receive(chunk: any, cancellationToken: CancellationToken) {
+    return this.callback(chunk, cancellationToken)
   }
 }
 
@@ -54,7 +59,10 @@ export default class HIDTransport extends Transport {
     // immediately convert it to a message
     const message = new Message('event', chunk)
 
-    this.readPipeline.push(message)
+    // This is a bit meaningless since nothing should fail now.
+    const cancellationToken = new CancellationToken()
+
+    this.readPipeline.push(message, cancellationToken)
   }
 
   async connect() {
@@ -72,12 +80,13 @@ export default class HIDTransport extends Transport {
     this.hid.close()
   }
 
-  writeToDevice(chunk: any) {
+  writeToDevice(chunk: any, cancellationToken: CancellationToken) {
     dTransport('writing raw hid data', chunk)
 
     return new Promise((resolve, reject) => {
       this.hid.write(chunk)
       resolve()
+      cancellationToken.subscribe(reject)
     })
   }
 }
