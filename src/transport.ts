@@ -32,7 +32,7 @@ export default class HIDTransport extends Transport {
   options: HIDTransportOptions
 
   constructor(options: HIDTransportOptions) {
-    super(options)
+    super()
 
     this.options = options
 
